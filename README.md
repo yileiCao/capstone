@@ -1,7 +1,7 @@
 <h1>Udacity Data Enginnering Capstone</h1>
 
 <h2>Introduction</h2>
-<p>There are many casinos in Las Vegas in the USA which are making plans to appeal international tourists to play and live in their hotels. They want to analyze statistics of their potential customers first by digging information from USA I94 immigration data first.</p>
+<p>There are many casinos in Las Vegas in the USA which are making plans to appeal international tourists to play and live in their hotels. They want to analyze statistics of their potential customers first by digging information from USA I94 immigration data.</p>
 
 <h2>Purpose</h2>
 
