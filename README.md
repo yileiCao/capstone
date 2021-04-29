@@ -16,19 +16,21 @@
 <h2>Preprocessing steps</h2>
   <h3>Immigration table</h3>
     <p>Include 15 columns: id(primary key), arrival_date, depardure_date, year, month, resident, port, model, address, age, visa, gender, airline, day_stayed</p>
-    <p>id: Immigration record id.</p>
-    <p>arrival_date: Date of entry.</p> 
-    <p>depardure_date: Date of leave.</p>
-    <p>year, month: year and month of entry.</p>
-    <p>resident: country where immigrator lived.</p> 
-    <p>port: port of immigration entry in the USA.</p>
-    <p>model: the approach the immigrator take to come to america, including Air, Sea, Land and Not reported.</p>
-    <p>address: the address in the USA where the immigrator can be contacted.</p>
-    <p>age: the age of immigrator.</p>
-    <p>visa: the visa type of immigrator, including Business, Pleasure, Student.</p>
-    <p>gender: the gender of immigrator.</p>
-    <p>airline: the airline code of the flight the immigrator took if he came to america by air.</p>
-    <p>day_stayed: the number of days the immigtator stayed in the USA.</p>
+    <ul>
+      <li>id: Immigration record id.</li>
+      <li>arrival_date: Date of entry.</li> 
+      <li>depardure_date: Date of leave.</li>
+      <li>year, month: year and month of entry.</li>
+      <li>resident: country where immigrator lived.</li> 
+      <li>port: port of immigration entry in the USA.</li>
+      <li>model: the approach the immigrator take to come to america, including Air, Sea, Land and Not reported.</li>
+      <li>address: the address in the USA where the immigrator can be contacted.</li>
+      <li>age: the age of immigrator.</p>
+      <li>visa: the visa type of immigrator, including Business, Pleasure, Student.</li>
+      <li>gender: the gender of immigrator.</li>
+      <li>airline: the airline code of the flight the immigrator took if he came to america by air.</li>
+      <li>day_stayed: the number of days the immigtator stayed in the USA.</li>
+    <ul>
     
   <h3>Temperature table</h3>
     <p>Include 5 columns: year, month, city, average_temperature,	uncertainty</p>	
