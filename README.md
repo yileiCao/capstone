@@ -15,7 +15,17 @@
   
 <h2>Preprocessing steps</h2>
   <h3>Immigration table</h3>
-    <p>Include 15 columns: id(primary key), arrival_date, depardure_date, year, month, resident, port, model, address, age, visa, gender, airline, day_stayed</p>
+    <ol>
+      <li>Replace recerence number in raw immigration table with information from I94_SAS_Labels_Descriptions.SAS file.</li>
+      <li>Split port column with city_port and state_port columns.</li> 
+      <li>Reformat arrival date and departure date<./li>
+      <li>Calculate day stayed of immigrator.</li>
+      <li>Some immigrators' address information is missed.(49 in 1000) Replace it with state_port column.</li> 
+      <li>Assume address is the state where the immigrators most want to visit. It is important in my analysis.</li>
+      <p>model: the approach the immigrator take to come to america, including Air, Sea, Land and Not reported.</p>
+      <li>Extract useful columns and write the table ordered by address and partitioned by month.</li>
+      <li>Include 15 columns: id(primary key), year, month, resident, city_port, state_port, model, address, age, visa, gender, airline, day_stayed, arrival_date, depardure_date</li>
+    </ol>
     <ul>
       <li>id: Immigration record id.</li>
       <li>arrival_date: Date of entry.</li> 
@@ -25,12 +35,15 @@
       <li>port: port of immigration entry in the USA.</li>
       <li>model: the approach the immigrator take to come to america, including Air, Sea, Land and Not reported.</li>
       <li>address: the address in the USA where the immigrator can be contacted.</li>
-      <li>age: the age of immigrator.</p>
+      <li>age: the age of immigrator.</li>
       <li>visa: the visa type of immigrator, including Business, Pleasure, Student.</li>
       <li>gender: the gender of immigrator.</li>
       <li>airline: the airline code of the flight the immigrator took if he came to america by air.</li>
-      <li>day_stayed: the number of days the immigtator stayed in the USA.</li>
-    <ul>
+      <li>day_stayed: the number of days the immigrator stayed in the USA.</li>
+    </ul>
+    
+  
+  
     
   <h3>Temperature table</h3>
     <p>Include 5 columns: year, month, city, average_temperature,	uncertainty</p>	
