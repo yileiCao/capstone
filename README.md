@@ -27,19 +27,19 @@
       <li>Include 15 columns: id(primary key), year, month, resident, city_port, state_port, model, address, age, visa, gender, airline, day_stayed, arrival_date, depardure_date</li>
     </ol>
     <ul>
-      <li>id: Immigration record id.</li>
-      <li>arrival_date: Date of entry.</li> 
+      <li>id:             Immigration record id.</li>
+      <li>arrival_date:   Date of entry.</li> 
       <li>depardure_date: Date of leave.</li>
-      <li>year, month: year and month of entry.</li>
-      <li>resident: country where immigrator lived.</li> 
-      <li>port: port of immigration entry in the USA.</li>
-      <li>model: the approach the immigrator take to come to america, including Air, Sea, Land and Not reported.</li>
-      <li>address: the address in the USA where the immigrator can be contacted.</li>
-      <li>age: the age of immigrator.</li>
-      <li>visa: the visa type of immigrator, including Business, Pleasure, Student.</li>
-      <li>gender: the gender of immigrator.</li>
-      <li>airline: the airline code of the flight the immigrator took if he came to america by air.</li>
-      <li>day_stayed: the number of days the immigrator stayed in the USA.</li>
+      <li>year, month:    year and month of entry.</li>
+      <li>resident:       country where immigrator lived.</li> 
+      <li>port:           port of immigration entry in the USA.</li>
+      <li>model:          the approach the immigrator take to come to america, including Air, Sea, Land and Not reported.</li>
+      <li>address:        the address in the USA where the immigrator can be contacted.</li>
+      <li>age:            the age of immigrator.</li>
+      <li>visa:           the visa type of immigrator, including Business, Pleasure, Student.</li>
+      <li>gender:         the gender of immigrator.</li>
+      <li>airline:        the airline code of the flight the immigrator took if he came to america by air.</li>
+      <li>day_stayed:     the number of days the immigrator stayed in the USA.</li>
     </ul>
     
   
