@@ -16,15 +16,8 @@
     <p>Airline information like country comes from this data.</p>
 </ul>
 
-
-
   
-<h2>Procedures</h2>
-  <p>To preprocess and filter data using spark.</p>
-  <p>To build pipelines using Airflow to moniter and control each step</p>
-  <p>To store refined dataset to S3 Bucket</p>
-  
-<h2>Preprocessing steps</h2>
+<h2>Table preprocess steps</h2>
   <h3>Immigration table</h3>
     <ol>
       <li>Replace recerence number in raw immigration table with information from I94_SAS_Labels_Descriptions.SAS file.</li>
@@ -79,19 +72,36 @@
 <h3>Prerequisites</h3>
 <ol>
     <li>Python 2.7 or above.</li>
-    <li>configparser and pyspark package</li>
     <li>AWS Account.</li>
-    <li>Set your AWS access and secret key in the config file.</li>
-    <p>[AWS]<br/>
-    AWS_ACCESS_KEY_ID = [your aws key]<br/>
-    AWS_SECRET_ACCESS_KEY = [your aws secret]</p>
+    <li>AWS Command Line.</li>
 </ol>
 
 
+  
+<h3>Procedures</h3>
+<ol>
+  <li>Upload data into S3</li>
+  <li>Set up EMR cluster</li>
+    <p>aws emr create-cluster --name spark-cluster --use-default-roles --release-label emr-5.28.0 --instance-count 3 --applications Name=Spark  --ec2-attributes KeyName=spark-cluster --instance-type m5.xlarge --instance-count 3<p>
+  <li>Move data from S3 to HDFS.</li>
+    <p>aws emr add-steps --cluster-id j-XXXXXXXX --steps file://./Desktop/myStep.json</p>
+   <P>JSON file
+     [
+    {
+        "Name":"S3DistCp step",
+        "Args":["s3-dist-cp","--s3Endpoint=s3.amazonaws.com","--src=s3://XXXX/airline_data","--dest=hdfs:///airline_result","--srcPattern=.*[a-zA-Z,]+"],
+        "ActionOnFailure":"CONTINUE",
+        "Type":"CUSTOM_JAR",
+        "Jar":"command-runner.jar"
+    }
+     ]</p>    
+  <li>Upload script to EMR master node and run script</li>
+    <p>scp -i  XXX.pem XXX/immigration_table.py hadoop@XXXXXXXXXX.us-west-2.compute.amazonaws.com:/home/hadoop</p>
+  <li>Move result from HDFS to s3.</li>
+    <p>s3-dist-cp --src hdfs:///immigration_data/immigration.csv --dest s3://XXX/immigration_result/immigration.csv</p>
+  <li>Use Apache Zeppelin to visualize dataset.</li>
 
-<p>This dataset can also be used by other American city to analyze their international tourists.</p>
-
-<h2>Example other usage</h2>
+<h2>Example usage</h2>
 
 <p>There are many casinos in Las Vegas in the USA which are making plans to appeal international tourists to play and live in their hotels. They want to analyze statistics of their customers first by digging information from USA I94 immigration data.</p>
 <h3>Their plan includes</h3>
@@ -106,11 +116,25 @@
   
 <h3>Dataset Mining</h3>
 <ol>
-  <li></li>
+  <li>Count tourists group by the airlines they took.</li>
+  <p>record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.airline).agg(count("id").\
+    alias("count")).sort(desc("count")).limit(20).join(airline, record.airline==airline.code, how = 'inner').select("airline", "count", "full name", "country").sort(desc("count"))</p>
+  <img width="688" alt="Screen Shot 2021-05-02 at 8 54 44 PM" src="https://user-images.githubusercontent.com/63228731/116825842-efae1f80-ab88-11eb-85f1-86d55ba54260.png">
+  <p>With the figure above, it is easy to find business parner.</p>
+
   
-  <li>Count and compare tourists whose port state is Nevada and whose address is Nevada</li>
+  <li>Count and compare tourists whose port state are Nevada and tourists whose address are Nevada</li>
   <p> record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
   <p> record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
   <img width="1153" alt="Screen Shot 2021-05-02 at 6 50 57 PM" src="https://user-images.githubusercontent.com/63228731/116822630-bb7e3300-ab77-11eb-869d-78931694fb38.png">
   <p>By comparing two tables above, there are many Japanese tourists coming to Nevada in 2016, while only very small number of them entering United States through port in Nevada. There may not be enough air routes connecting Japan and Nevada.</p>
 
+  <li>Plot tourists number againest tempereture.</li>
+    <p>tempereture1 = tempereture.filter(tempereture.City=="Las Vegas").groupBy(tempereture.month).agg(avg("AverageTemperature").alias("AverageTempereture"))</p>
+    <p>record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.month).agg(count("id").\
+    alias("count")).join(tempereture1, "month", how = 'inner').select("AverageTempereture","count").orderBy("AverageTempereture")</p>
+    
+
+    <p>By comparing two tables above, it seems that tourists prefer to travel when Nevada has mild tempereture. </p>
+  </ol>
+  <h3>This dataset can also be used by other American city to analyze their international tourists.</h3>
