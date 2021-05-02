@@ -94,12 +94,23 @@
 <h2>Example other usage</h2>
 
 <p>There are many casinos in Las Vegas in the USA which are making plans to appeal international tourists to play and live in their hotels. They want to analyze statistics of their customers first by digging information from USA I94 immigration data.</p>
-<p>Their plan includes</p>
-  <ul>
+<h3>Their plan includes</h3>
+  <ol>
     <li>Making some discounts on international flight tickets landing Las Vegas</li>
       <p>They need to know by which airline tourists fly to Las Vegas.</p>
     <li>Opening some potential hot internagional flight route.</li>
       <p>They need to know information of tourists whose landing port is not Las Vegas but address is Las Vegas.</p>
     <li>Analyzing the temperature influence to the tourists number</li>
       <p>They need to know tourists and temperature each month</p>
-  </ul>
+  </ol>
+  
+<h3>Dataset Mining</h3>
+<ol>
+  <li></li>
+  
+  <li>Count and compare tourists whose port state is Nevada and whose address is Nevada</li>
+  <p> record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
+  <p> record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
+  <img width="1153" alt="Screen Shot 2021-05-02 at 6 50 57 PM" src="https://user-images.githubusercontent.com/63228731/116822630-bb7e3300-ab77-11eb-869d-78931694fb38.png">
+  <p>By comparing two tables above, there are many Japanese tourists coming to Nevada in 2016, while only very small number of them entering United States through port in Nevada. There may not be enough air routes connecting Japan and Nevada.</p>
+
