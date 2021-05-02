@@ -1,3 +1,6 @@
+
+
+
 <h1>Udacity Data Enginnering Capstone</h1>
 
 <h2>Introduction</h2>
@@ -100,6 +103,7 @@
   <li>Move result from HDFS to s3.</li>
     <p>s3-dist-cp --src hdfs:///immigration_data/immigration.csv --dest s3://XXX/immigration_result/immigration.csv</p>
   <li>Use Apache Zeppelin to visualize dataset.</li>
+</ol>
 
 <h2>Example usage</h2>
 
