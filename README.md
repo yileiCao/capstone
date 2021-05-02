@@ -4,7 +4,7 @@
 <h1>Udacity Data Enginnering Capstone</h1>
 
 <h2>Introduction</h2>
-<p>Millions of international tourists travel to United States every year, by routes connecting their home country and big citis in United States. The board of one big airline want to know whether the existing routes satisfied present demand. To decide whether there need to add new routes. A dataset needs to be built and to be analyzed. This project try to built this dataset demo.</p>
+<p>Millions of international tourists travel to United States every year, by routes connecting their home country and big citis in United States. The board of one big airline want to know whether the existing routes satisfied present demand. To decide whether there need to add new routes. A dataset needs to be built and to be analyzed. This project built one demo with Spark.</p>
 
 <h2>The dataset includes data from three sourses:</h2>
 <ul>
@@ -98,7 +98,7 @@
         "Jar":"command-runner.jar"
     }
      ]</p>    
-  <li>Upload script to EMR master node and run script</li>
+  <li>Upload scripts(immigration_table and tempereture table) to EMR master node and run script</li>
     <p>scp -i  XXX.pem XXX/immigration_table.py hadoop@XXXXXXXXXX.us-west-2.compute.amazonaws.com:/home/hadoop</p>
   <li>Move result from HDFS to s3.</li>
     <p>s3-dist-cp --src hdfs:///immigration_data/immigration.csv --dest s3://XXX/immigration_result/immigration.csv</p>
@@ -142,3 +142,12 @@
    <p>By comparing two tables above, it seems that tourists prefer to travel when Nevada has mild tempereture. </p>
   </ol>
   <h3>This dataset can also be used by other American city to analyze their international tourists.</h3>
+  
+<h2>Other Scenarios</h2>
+<ol>
+  <li>The data was increased by 100x.</li>
+    <p>By splitting the data into several parts before running in EMR, the EMR cluster can handle this amount of data. My script ran 36 mins in EMR cluster with three nodes. A 100 larger dataset can be easily handled by adding more nodes.</p>
+  <li>The pipelines would be run on a daily basis by 7 am every day.</li>
+    <p>An airflow pipeline can be built to deal with this scenario.</p>
+  <li>The database needed to be accessed by 100+ people.</li>
+    <p>A preserved redshift cluster can be built to contain the database. The authorized user can easily access data.</p>
