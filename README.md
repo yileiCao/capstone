@@ -130,7 +130,7 @@
   <li>Count and compare tourists whose port state are Nevada and tourists whose address are Nevada</li>
   <p> record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
   <p> record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
-  <img width="1153" alt="Screen Shot 2021-05-02 at 6 50 57 PM" src=".example2.png">
+  <img width="1153" alt="Screen Shot 2021-05-02 at 6 50 57 PM" src="https://user-images.githubusercontent.com/63228731/116822630-bb7e3300-ab77-11eb-869d-78931694fb38.png">
   <p>By comparing two tables above, there are many Japanese tourists coming to Nevada in 2016, while only very small number of them entering United States through port in Nevada. There may not be enough air routes connecting Japan and Nevada.</p>
 
   <li>Plot tourists number againest tempereture.</li>
@@ -138,7 +138,7 @@
     <p>record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.month).agg(count("id").\
     alias("count")).join(tempereture1, "month", how = 'inner').select("AverageTempereture","count").orderBy("AverageTempereture")</p>
     
-
-    <p>By comparing two tables above, it seems that tourists prefer to travel when Nevada has mild tempereture. </p>
+   <img width="1153" alt="example3" src="https://github.com/yileiCao/capstone/blob/main/example3.png">
+   <p>By comparing two tables above, it seems that tourists prefer to travel when Nevada has mild tempereture. </p>
   </ol>
   <h3>This dataset can also be used by other American city to analyze their international tourists.</h3>
