@@ -1,11 +1,21 @@
 <h1>Udacity Data Enginnering Capstone</h1>
 
 <h2>Introduction</h2>
-<p>There are many casinos in Las Vegas in the USA which are making plans to appeal international tourists to play and live in their hotels. They want to analyze statistics of their customers first by digging information from USA I94 immigration data.</p>
+<p>Millions of international tourists travel to United States every year, by routes connecting their home country and big citis in United States. The board of one big airline want to know whether the existing routes satisfied present demand. To decide whether there need to add new routes. A dataset needs to be built and to be analyzed. This project try to built this dataset demo.</p>
 
-<p>To create a dataset they can analyze with, I collect data from USA I94 immigration data of 2016 and world temperature data. After preprocessing data and filtering useful information with spark. I store the dataset in S3 Bucket.</p>
+<h2>The dataset includes data from three sourses:</h2>
+<ul>
+  <li><h3>i94 immigration data</h3></li>
+    <p>This data comes from the US National Tourism and Trade Office. https://travel.trade.gov/research/reports/i94/historical/2016.html</p>
+    <p>International tourist information come from this data.</p>
+  <li><h3>World tempereture data</h3></li>
+    <p>This data comes from Kaggle. https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data</p>
+    <p>Tempereture of main cities in United States are extracted from this data.</p>
+  <li><h3>airline data</h3></li>
+    <p>This data comes from OpenFlight. https://openflights.org/data.html</p>
+    <p>Airline information like country comes from this data.</p>
 
-<p>This dataset can also be used by other American city to analyze their international tourists.</p>
+
 
   
 <h2>Procedures</h2>
@@ -18,7 +28,7 @@
     <ol>
       <li>Replace recerence number in raw immigration table with information from I94_SAS_Labels_Descriptions.SAS file.</li>
       <li>Split port column with city_port and state_port columns.</li> 
-      <li>Reformat arrival date and departure date<./li>
+      <li>Reformat arrival date and departure date.</li>
       <li>Calculate day stayed of immigrator.</li>
       <li>Some immigrators' address information is missed.(49 in 1000) Replace it with state_port column.</li> 
       <li>Assume address is the state where the immigrators most want to visit. It is important in my analysis.</li>
@@ -46,12 +56,18 @@
   
     
   <h3>Temperature table</h3>
-    <p>Include 5 columns: year, month, city, average_temperature,	uncertainty</p>	
-    <p>year, month, city are primary keys</p>
-    <p>uncentainty: the 95% confidence interval around the average of city temperature.</p>
+    <ol>
+      <li>Filter country with "United States"</li>
+      <li>Filter year after 2000-01-01. Because the climate changes a lot, the statistics too long ago have no meanings.</li> 
+      <li>Order the data by month and city.</li>
+      <li>Extract useful columns.</li>
+      <li>Include 4 columns: year, month, city, average_temperature. year, month, city are primary keys</li>
+    </ol>
+    
     
   <h3>Airline table</h3>
     <p>Include 5 columns: id(primary key), full_name, code, country, finantial</p>
+    <p>The code column is used to join with immigration table</p>
 
 
   
@@ -70,8 +86,13 @@
     AWS_SECRET_ACCESS_KEY = [your aws secret]</p>
 </ol>
 
-<h2>Purpose</h2>
 
+
+<p>This dataset can also be used by other American city to analyze their international tourists.</p>
+
+<h2>Example other usage</h2>
+
+<p>There are many casinos in Las Vegas in the USA which are making plans to appeal international tourists to play and live in their hotels. They want to analyze statistics of their customers first by digging information from USA I94 immigration data.</p>
 <p>Their plan includes</p>
   <ul>
     <li>Making some discounts on international flight tickets landing Las Vegas</li>
