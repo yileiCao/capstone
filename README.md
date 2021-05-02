@@ -123,14 +123,14 @@
   <li>Count tourists group by the airlines they took.</li>
   <p>record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.airline).agg(count("id").\
     alias("count")).sort(desc("count")).limit(20).join(airline, record.airline==airline.code, how = 'inner').select("airline", "count", "full name", "country").sort(desc("count"))</p>
-  <img width="688" alt="Screen Shot 2021-05-02 at 8 54 44 PM" src="https://user-images.githubusercontent.com/63228731/116825842-efae1f80-ab88-11eb-85f1-86d55ba54260.png">
+  <img width="688" alt="example1" src="https://github.com/yileiCao/capstone/blob/main/example1.png">
   <p>With the figure above, it is easy to find business parner.</p>
 
   
   <li>Count and compare tourists whose port state are Nevada and tourists whose address are Nevada</li>
   <p> record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
   <p> record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
-  <img width="1153" alt="Screen Shot 2021-05-02 at 6 50 57 PM" src="https://user-images.githubusercontent.com/63228731/116822630-bb7e3300-ab77-11eb-869d-78931694fb38.png">
+  <img width="1153" alt="example2" src="https://github.com/yileiCao/capstone/blob/main/example2.png">
   <p>By comparing two tables above, there are many Japanese tourists coming to Nevada in 2016, while only very small number of them entering United States through port in Nevada. There may not be enough air routes connecting Japan and Nevada.</p>
 
   <li>Plot tourists number againest tempereture.</li>
