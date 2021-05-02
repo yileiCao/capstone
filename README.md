@@ -123,14 +123,14 @@
   <li>Count tourists group by the airlines they took.</li>
   <p>record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.airline).agg(count("id").\
     alias("count")).sort(desc("count")).limit(20).join(airline, record.airline==airline.code, how = 'inner').select("airline", "count", "full name", "country").sort(desc("count"))</p>
-  <img width="688" alt="example1" src="https://github.com/yileiCao/capstone/blob/main/example1.png">
+  <img width="700" alt="example1" src="https://github.com/yileiCao/capstone/blob/main/example1.png">
   <p>With the figure above, it is easy to find business parner.</p>
 
   
   <li>Count and compare tourists whose port state are Nevada and tourists whose address are Nevada</li>
   <p> record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
   <p> record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
-  <img width="1153" alt="example2" src="https://github.com/yileiCao/capstone/blob/main/example2.png">
+  <img width="600" alt="example2" src="https://github.com/yileiCao/capstone/blob/main/example2.png">
   <p>By comparing two tables above, there are many Japanese tourists coming to Nevada in 2016, while only very small number of them entering United States through port in Nevada. There may not be enough air routes connecting Japan and Nevada.</p>
 
   <li>Plot tourists number againest tempereture.</li>
@@ -138,7 +138,7 @@
     <p>record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.month).agg(count("id").\
     alias("count")).join(tempereture1, "month", how = 'inner').select("AverageTempereture","count").orderBy("AverageTempereture")</p>
     
-   <img width="1153" alt="example3" src="https://github.com/yileiCao/capstone/blob/main/example3.png">
+   <img width="1000" alt="example3" src="https://github.com/yileiCao/capstone/blob/main/example3.png">
    <p>By comparing two tables above, it seems that tourists prefer to travel when Nevada has mild tempereture. </p>
   </ol>
   <h3>This dataset can also be used by other American city to analyze their international tourists.</h3>
