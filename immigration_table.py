@@ -119,7 +119,8 @@ def process_immigration_data(spark, input_path, output_path):
 
     #process the first data file
     records_df = spark.read.format('com.github.saurfang.sas.spark').load(files[0])
-    records_df = records_df.withColumn("i94_res",records_df["i94res"].cast(IntegerType()).cast(StringType()))\
+    records_df = records_df.filter("cicid is not NULL")\
+                    .withColumn("i94_res",records_df["i94res"].cast(IntegerType()).cast(StringType()))\
                     .withColumn("i94_cit",records_df["i94cit"].cast(IntegerType()).cast(StringType()))\
                     .withColumn("i94_mode",records_df["i94mode"].cast(IntegerType()).cast(StringType()))\
                     .withColumn("i94_visa",records_df["i94visa"].cast(IntegerType()).cast(StringType()))\
@@ -147,7 +148,8 @@ def process_immigration_data(spark, input_path, output_path):
     #process the rest data file
     for i in range(len(files)-1):
         records_df = spark.read.format('com.github.saurfang.sas.spark').load(files[i+1])
-        records_df = records_df.withColumn("i94_res",records_df["i94res"].cast(IntegerType()).cast(StringType()))\
+        records_df = records_df.filter("cicid is not NULL")\
+                    .withColumn("i94_res",records_df["i94res"].cast(IntegerType()).cast(StringType()))\
                     .withColumn("i94_cit",records_df["i94cit"].cast(IntegerType()).cast(StringType()))\
                     .withColumn("i94_mode",records_df["i94mode"].cast(IntegerType()).cast(StringType()))\
                     .withColumn("i94_visa",records_df["i94visa"].cast(IntegerType()).cast(StringType()))\
@@ -174,7 +176,9 @@ def process_immigration_data(spark, input_path, output_path):
                     "arrival_date", "departure_date"))
     #quality check        
     if record_table.count() < 1:
-        raise Exception("Wrong, no data in this table")
+        raise Exception("Error, no data in this table")
+    if record_table.filter("id is NULL").count() != 0:
+        raise Exception("Error, some records in dataset have null value in primary key")
     record_table.write.csv(path = f"{output_path}/test.csv",mode='overwrite', header=True)
 
         
