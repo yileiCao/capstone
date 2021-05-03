@@ -19,6 +19,14 @@
     <p>Airline information like country comes from this data.</p>
 </ul>
 
+<h2>Choosen tools and data models<h2>
+  <h3>Apache Spark</h3>
+  <p>Spark is very fast compered to other frameworks because it works in cluster mode and use distributed processing and computation frameworks internally. It took only 36 mins to finish processing immigration data in Spark cluster while my personal computer spent several hours. Spark also supports sas7dbat files, which is the immigration data file type.</p>
+  <h3>AWS EMR</h3>
+  <p>Amazon EMR offers the expandable low-configuration service as an easier alternative to running in-house cluster computing. With Amazon EMR, I don't need to maintain Hadoop Cluster. Apache Spark and Apache Zeppelin are pre-configured in EMR cluster as well.</p>
+  <h3>Star Schema</h3>
+  <p>The data is this dataset is well-structured. With star schema, this database can be used to cope with different query without changing schema structure.</p>
+
   
 <h2>Table preprocess steps</h2>
   <h3>Immigration table</h3>
