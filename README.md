@@ -74,8 +74,7 @@
     <p>Include 5 columns: id(primary key), full_name, code, country, finantial</p>
     <p>The code column is used to join with immigration table</p>
 
-
-  
+  <img width="900" alt="Star_schema" src="https://github.com/yileiCao/capstone/blob/main/Star_Schema.png">
   
 <h2>Getting Started</h2>
 
