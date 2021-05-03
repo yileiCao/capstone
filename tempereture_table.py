@@ -5,6 +5,12 @@ from pyspark.sql.types import StructType,StructField, StringType, IntegerType, \
     DoubleType, ShortType, LongType, TimestampType, DateType
 
 def create_spark_session():
+    
+    """
+    To create spark session which can read sas7bdat data.
+    """
+    
+
     spark = SparkSession.builder\
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.0")\
         .enableHiveSupport().getOrCreate()
@@ -12,7 +18,24 @@ def create_spark_session():
 
 
 def process_tempereture_data(spark, input_path, output_path):
-    tempereture_fname = "file:///home/hadoop/data/GlobalLandTemperaturesByCity.csv"
+    
+    """
+    Step 1: Load data from tempereture files,
+    Step 2: Filter data with country united states and time after 2000
+    Step 3: Extract useful columns.
+    Step 4: Quality check: whether table contains rows.
+    Step 5: Write data into HDFS file system.
+    Parameters
+    ----------
+    spark: spark session
+        This is the spark session that has been created
+    input_path: path
+        This is the path where original data resides(HDFS path).
+    output_path: path
+        This is the path to where the output files will be written.
+    """
+
+    tempereture_fname = f"{input_path}/GlobalLandTemperaturesByCity.csv"
     schema = StructType([
         StructField("dt", DateType(), True),
         StructField("AverageTemperature", DoubleType(), True),
@@ -28,12 +51,14 @@ def process_tempereture_data(spark, input_path, output_path):
         .withColumn("month", month(tempereture_df.dt))\
         .withColumn("year", year(tempereture_df.dt))
     tempereture_table = tempereture_df.select("year", "month", "City", "AverageTemperature")
-    tempereture_table.write.csv(path = "hdfs:///immigration_data/US_tempereture.csv",mode='overwrite', header=True)
+    if tempereture_table.count() < 1:
+        raise Exception("Wrong, no data in this table")#quality check
+    tempereture_table.write.csv(path = f"{output_path}/US_tempereture.csv",mode='overwrite', header=True)
     
 def main():        
     spark = create_spark_session()
-    input_path = "file:///home/hadoop/data"
-    output_path = "file:///home/hadoop/data"
+    input_path = "hdfs:///tempereture_data"
+    output_path = "hdfs:///tempereture_result"
     process_tempereture_data(spark, input_path, output_path)
 
 
