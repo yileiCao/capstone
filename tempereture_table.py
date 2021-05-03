@@ -51,8 +51,13 @@ def process_tempereture_data(spark, input_path, output_path):
         .withColumn("month", month(tempereture_df.dt))\
         .withColumn("year", year(tempereture_df.dt))
     tempereture_table = tempereture_df.select("year", "month", "City", "AverageTemperature")
+    
+    #quality check 
     if tempereture_table.count() < 1:
-        raise Exception("Wrong, no data in this table")#quality check
+        raise Exception("Error, no data in tempereture table.")   
+    if tempereture_table.filter(tempereture_table.month > 12).count() != 0:
+        raise Exception("Error, some records in tempereture table have invalid values in month column.")
+        
     tempereture_table.write.csv(path = f"{output_path}/US_tempereture.csv",mode='overwrite', header=True)
     
 def main():        
