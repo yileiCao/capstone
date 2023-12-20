@@ -1,10 +1,10 @@
 
 
 
-<h1>Udacity Data Enginnering Capstone</h1>
+<h1>Udacity Data Engineering Capstone</h1>
 
 <h2>Introduction</h2>
-<p>Millions of international tourists travel to United States every year, by routes connecting their home country and big citis in United States. The board of one big airline want to know whether the existing routes satisfied present demand. To decide whether there need to add new routes. A dataset needs to be built and to be analyzed. This project built one demo with Spark.</p>
+<p>Millions of international tourists travel to the United States every year, by routes connecting their home country and big cities in the United States. The board of one big airline wants to know whether the existing routes satisfy the present demand. To decide whether there need to add new routes. A dataset needs to be built and to be analyzed. This project built one demo with Spark.</p>
 
 <h2>The dataset includes data from three sources:</h2>
 <ul>
@@ -25,7 +25,7 @@
   <h3>AWS EMR</h3>
   <p>Amazon EMR offers the expandable low-configuration service as an easier alternative to running in-house cluster computing. With Amazon EMR, I don't need to maintain Hadoop Cluster. Apache Spark and Apache Zeppelin are pre-configured in the EMR cluster as well.</p>
   <h3>Star Schema</h3>
-  <p>The data is this dataset is well-structured. With star schema, this database can be used to cope with different queries without changing schema structure.</p>
+  <p>The data in this dataset is well-structured. With star schema, this database can be used to cope with different queries without changing schema structure.</p>
 
   
 <h2>Table preprocess steps</h2>
@@ -121,13 +121,13 @@
       <p>They need to know by which airline tourists fly to Las Vegas.</p>
     <li>Opening some potential hot international flight routes.</li>
       <p>They need to know the information of tourists whose landing port is not Las Vegas but whose address is Las Vegas.</p>
-    <li>Analyzing the temperature influence on the tourists number</li>
+    <li>Analyzing the temperature influence on the tourist's number</li>
       <p>They need to know tourists and temperature each month</p>
   </ol>
   
 <h3>Dataset Mining</h3>
 <ol>
-  <li>Count tourists group by the airlines they took.</li>
+  <li>Count tourist groups by the airlines they took.</li>
   <p>record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.airline).agg(count("id").\
     alias("count")).sort(desc("count")).limit(20).join(airline, record.airline==airline.code, how = 'inner').select("airline", "count", "full name", "country").sort(desc("count"))</p>
   <img width="900" alt="example1" src="https://github.com/yileiCao/capstone/blob/main/example1.png">
@@ -138,7 +138,7 @@
   <p> record.filter(record.address=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
   <p> record.filter(record.port_state=="NEVADA").filter(record.visa=="Pleasure").groupBy(record.resident).agg(count("id").alias("count")).sort(desc("count")).limit(10)</p>
   <img width="600" alt="example2" src="https://github.com/yileiCao/capstone/blob/main/example2.png">
-  <p>By comparing the two tables above, there were many Japanese tourists coming to Nevada in 2016, while only a very small number of them entered the United States through the port in Nevada. There may not be enough air routes connecting Japan and Nevada.</p>
+  <p>By comparing the two tables above, many Japanese tourists were coming to Nevada in 2016, while only a very small number of them entered the United States through the port in Nevada. There may not be enough air routes connecting Japan and Nevada.</p>
 
   <li>Plot tourists' number against temperature.</li>
     <p>tempereture1 = tempereture.filter(tempereture.City=="Las Vegas").groupBy(tempereture.month).agg(avg("AverageTemperature").alias("AverageTempereture"))</p>
@@ -153,8 +153,8 @@
 <h2>Other Scenarios</h2>
 <ol>
   <li>The data was increased by 100x.</li>
-    <p>By splitting the data into several parts before running in EMR, the EMR cluster can handle this amount of data. My script ran for 36 mins in the EMR cluster with three nodes. A 100 larger dataset can be easily handled by adding more nodes.</p>
-  <li>The pipelines would be run on a daily basis by 7 am every day.</li>
+    <p>By splitting the data into several parts before running in EMR, the EMR cluster can handle this amount of data. My script ran for 36 minutes in the EMR cluster with three nodes. A 100 larger dataset can be easily handled by adding more nodes.</p>
+  <li>The pipelines would be run daily by 7 am every day.</li>
     <p>An airflow pipeline can be built to deal with this scenario.</p>
   <li>The database needed to be accessed by 100+ people.</li>
     <p>A preserved redshift cluster can be built to contain the database. The authorized user can easily access data.</p>
